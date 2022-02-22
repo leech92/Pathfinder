@@ -1,6 +1,12 @@
 import React from "react";
-import Node from './Node/Node'
+import Node from '../Node/Node'
+import { dijkstras } from "../algorithms/dijkstras";
 import './Pathfinder.css'
+
+const startRow = 0
+const endRow = 0
+const startCol = 3
+const endCol = 3
 
 class Pathfinder extends React.Component {
     constructor(props) {
@@ -10,14 +16,15 @@ class Pathfinder extends React.Component {
         }
     }
 
+    const set
+
     componentDidMount() {
         const grid = []
-
         for (let row = 0; row < 5; row++) {
             let currRow = []
 
             for (let col = 0; col < 5; col++) {
-                const currNode = {
+                let currNode = {
                     col,
                     row,
                     start: row === 0 && col === 0,
@@ -25,15 +32,18 @@ class Pathfinder extends React.Component {
                 }
                 currRow.push(currNode)
             }
-
             grid.push(currRow)
         }
-
         this.setState({grid})
     }
 
+    visualDijkstras() {
+        const { grid } = this.state
+        const start = grid[]
+    }
+
     render() {
-        const {grid} = this.state
+        const { grid } = this.state
 
         return (
             <div className="page">
@@ -42,7 +52,7 @@ class Pathfinder extends React.Component {
                         return (
                         <div key={rowIdx}>
                             {row.map((node, nodeIdx) => {
-                                const {start, end} = node
+                                const { start, end } = node
                                 return (
                                     <Node key={nodeIdx} start={start} end={end}></Node>
                                 )

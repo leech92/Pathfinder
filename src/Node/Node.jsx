@@ -8,7 +8,7 @@ class Node extends React.Component {
     }
 
     render() {
-        const {start, end} = this.props
+        const { start, end } = this.props
         const specialTile = start 
             ? 'starting-node'
             : end
