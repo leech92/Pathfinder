@@ -8,42 +8,54 @@ const endRow = 0
 const startCol = 3
 const endCol = 3
 
-class Pathfinder extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            grid: []
-        }
-    }
-
-    const set
-
-    componentDidMount() {
-        const grid = []
+const createGrid = () => {
+    const grid = []
         for (let row = 0; row < 5; row++) {
             let currRow = []
-
             for (let col = 0; col < 5; col++) {
-                let currNode = {
-                    col,
-                    row,
-                    start: row === 0 && col === 0,
-                    end: row === 3 && col === 3
-                }
                 currRow.push(currNode)
             }
             grid.push(currRow)
         }
+    return grid
+}
+
+const updateGrid = (grid, row, col) => {
+    
+}
+
+class Pathfinder extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            grid: [],
+            active: false
+        }
+    }
+
+    componentDidMount() {
+        const grid = createGrid()
         this.setState({grid})
+    }
+
+    handlePress(row, col) {
+        const updatedGrid = updateGrid(this.state.grid, row, col)
+        this.setState({grid: updatedGrid,
+                       active: true
+        })
     }
 
     visualDijkstras() {
         const { grid } = this.state
-        const start = grid[]
+        const start = grid[startRow][startCol]
+        const end = grid[endRow][endCol]
+        const visitedNodesInOrder = dijkstras(grid, start, end)
+        const nodesInShortestPathOrder = getNodesInShortestPathOrder(end)
+        this.animateDijkstras(visitedNodesInOrder, nodesInShortestPathOrder)
     }
 
     render() {
-        const { grid } = this.state
+        const { grid, active } = this.state
 
         return (
             <div className="page">
