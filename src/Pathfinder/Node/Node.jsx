@@ -1,4 +1,5 @@
 import React from "react";
+import './Node.css'
 
 class Node extends React.Component {
     constructor(props) {
@@ -7,10 +8,15 @@ class Node extends React.Component {
     }
 
     render() {
+        const {start, end} = this.props
+        const specialTile = start 
+            ? 'starting-node'
+            : end
+            ? 'ending-node' 
+            : ''
+
         return (
-            <div className="node">
-                Hello Node
-            </div>
+            <div className={`node ${specialTile}`}></div>
         )
     } 
 }
