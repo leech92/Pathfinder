@@ -21,7 +21,14 @@ const createGrid = () => {
 }
 
 const updateGrid = (grid, row, col) => {
-    
+    const updatedGrid = grid.slice()
+    const node = updatedGrid[row][col]
+    const updatedNode = {
+        ...node,
+        wall: !node.wall
+    }
+    updatedGrid[row][col] = updatedNode
+    return updatedGrid
 }
 
 class Pathfinder extends React.Component {
@@ -45,7 +52,7 @@ class Pathfinder extends React.Component {
         })
     }
 
-    visualDijkstras() {
+    startDijkstras() {
         const { grid } = this.state
         const start = grid[startRow][startCol]
         const end = grid[endRow][endCol]
@@ -59,6 +66,7 @@ class Pathfinder extends React.Component {
 
         return (
             <div className="page">
+                <button className="pathfinder-button" onClick={() => this.startDijkstras}>Start Dijkstra's Algorithm</button>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
                         return (
