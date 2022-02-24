@@ -101,7 +101,7 @@ class Pathfinder extends React.Component {
     }
 
     render() {
-        const { grid, active } = this.state
+        const { grid } = this.state
 
         return (
             <div className="page">
@@ -120,7 +120,6 @@ class Pathfinder extends React.Component {
                                         row={row}
                                         col={col}
                                         wall={wall}
-                                        active={active}
                                         press={(row, col) => this.handlePress(row, col)}
                                         continuePress={(row, col) => this.handleContinuePress(row, col)}
                                         stopPress={() => this.stopPress()}>
