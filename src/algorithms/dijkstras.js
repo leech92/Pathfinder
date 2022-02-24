@@ -13,7 +13,7 @@ export function dijkstras(grid, start, end) {
     }
     while (unvisitedNodes.length) {
         sortNodes(unvisitedNodes)
-        const closestNode = unvisitedNodes.unshift()
+        const closestNode = unvisitedNodes.shift()
         if (closestNode.wall) continue
         if (closestNode.distance === Infinity) return visitedNodesInOrder
         closestNode.visited = true

@@ -80,6 +80,26 @@ class Pathfinder extends React.Component {
         this.animateDijkstras(visitedNodesInOrder, nodesInShortestPathOrder)
     }
 
+    animateDijkstras(visitedNodesInOrder, nodesInShortestPathOrder) {
+        for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+            if (i === visitedNodesInOrder.length) {
+                setTimeout(() => {
+                    for (let j = 0; j < nodesInShortestPathOrder.length; j++) {
+                        setTimeout(() => {
+                            const node = nodesInShortestPathOrder[j]
+                            document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
+                        }, j * 50)
+                    }
+                }, i * 10)
+                return;
+            }
+            setTimeout(() => {
+                const node = visitedNodesInOrder[i]
+                document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited'
+            }, i * 10)
+        }
+    }
+
     render() {
         const { grid, active } = this.state
 
