@@ -1,11 +1,11 @@
 import React from "react";
 import Node from '../Node/Node'
-import { dijkstras } from "../algorithms/dijkstras";
+import { dijkstras, getNodesInShortestPathOrder } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
 const startRow = 0
-const endRow = 0
-const startCol = 3
+const endRow = 3
+const startCol = 0
 const endCol = 3
 
 const createGrid = () => {
@@ -13,7 +13,16 @@ const createGrid = () => {
         for (let row = 0; row < 5; row++) {
             let currRow = []
             for (let col = 0; col < 5; col++) {
-                currRow.push(currNode)
+                currRow.push({
+                    col,
+                    row,
+                    start: row === startRow && col === startCol,
+                    end: row === endRow && col === endCol,
+                    distance: Infinity,
+                    visited: false,
+                    wall: false,
+                    previous: null
+                })
             }
             grid.push(currRow)
         }
@@ -52,6 +61,16 @@ class Pathfinder extends React.Component {
         })
     }
 
+    handleContinuePress(row, col) {
+        if (!this.state.active) return;
+        const updatedGrid = updateGrid(this.state.grid, row, col)
+        this.setState({grid: updatedGrid})
+    }
+
+    handleStopPress() {
+        this.setState({active: false})
+    }
+
     startDijkstras() {
         const { grid } = this.state
         const start = grid[startRow][startCol]
@@ -72,9 +91,20 @@ class Pathfinder extends React.Component {
                         return (
                         <div key={rowIdx}>
                             {row.map((node, nodeIdx) => {
-                                const { start, end } = node
+                                const { start, end, row, col, wall } = node
                                 return (
-                                    <Node key={nodeIdx} start={start} end={end}></Node>
+                                    <Node 
+                                        key={nodeIdx} 
+                                        start={start} 
+                                        end={end}
+                                        row={row}
+                                        col={col}
+                                        wall={wall}
+                                        active={active}
+                                        press={(row, col) => this.handlePress(row, col)}
+                                        continuePress={(row, col) => this.handleContinuePress(row, col)}
+                                        stopPress={() => this.stopPress()}>
+                                    </Node>
                                 )
                             })}
                         </div>

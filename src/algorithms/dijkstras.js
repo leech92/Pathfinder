@@ -1,33 +1,31 @@
-const node = {
-    row,
-    col,
-    visited,
-    distance
-}
-
 export function dijkstras(grid, start, end) {
     if (!start || !end || start === end) {
         return false
     }
 
-    grid[start].distance = 0
-    const unvisitedNodes = grid.slice()
+    start.distance = 0
+    const visitedNodesInOrder = []
+    const unvisitedNodes = []
+    for (const row of grid) {
+        for (const node of row) {
+            unvisitedNodes.push(node)
+        }
+    }
     while (unvisitedNodes.length) {
         sortNodes(unvisitedNodes)
         const closestNode = unvisitedNodes.unshift()
+        if (closestNode.wall) continue
+        if (closestNode.distance === Infinity) return visitedNodesInOrder
         closestNode.visited = true
-        
-        if (closestNode === end) {
-            return 'success'
-        }
-
+        visitedNodesInOrder.push(closestNode)
+        if (closestNode === end) return visitedNodesInOrder
         updateNeighbors(closestNode, grid)
     }
 }
 
 function sortNodes(unvisitedNodes) {
     unvisitedNodes.sort((node1, node2) => {
-        node1.distance - node2.distance
+        return(node1.distance - node2.distance)
     })
 }
 
@@ -47,6 +45,16 @@ function getNeighbors(node, grid) {
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1])
 
     return neighbors.filter(neighbor => {
-        !neighbor.visited
+        return(!neighbor.visited)
     })
+}
+
+export function getNodesInShortestPathOrder(end) {
+    const nodesInShortestPathOrder = []
+    let currNode = end
+    while (currNode !== null) {
+        nodesInShortestPathOrder.unshift(currNode)
+        currNode = currNode.previous
+    }
+    return nodesInShortestPathOrder
 }
