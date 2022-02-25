@@ -3,16 +3,16 @@ import Node from '../Node/Node'
 import { dijkstras, getNodesInShortestPathOrder } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
-const startRow = 0
-const endRow = 3
-const startCol = 0
-const endCol = 3
+const startRow = 3
+const endRow = 8
+const startCol = 3
+const endCol = 8
 
 const createGrid = () => {
     const grid = []
-        for (let row = 0; row < 5; row++) {
+        for (let row = 0; row < 15; row++) {
             let currRow = []
-            for (let col = 0; col < 5; col++) {
+            for (let col = 0; col < 15; col++) {
                 currRow.push({
                     col,
                     row,
@@ -47,9 +47,7 @@ class Pathfinder extends React.Component {
             grid: [],
             active: false
         }
-        // this.handlePress = this.handlePress.bind(this)
-        // this.handleContinuePress = this.handleContinuePress.bind(this)
-        // this.handleStopPress = this.handleStopPress.bind(this)
+        this.startDijkstras = this.startDijkstras.bind(this)
     }
 
     componentDidMount() {
@@ -93,13 +91,13 @@ class Pathfinder extends React.Component {
                             document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
                         }, j * 50)
                     }
-                }, i * 10)
+                }, i * 25)
                 return;
             }
             setTimeout(() => {
                 const node = visitedNodesInOrder[i]
-                document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited'
-            }, i * 10)
+                document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited-node'
+            }, i * 25)
         }
     }
 
@@ -108,7 +106,7 @@ class Pathfinder extends React.Component {
 
         return (
             <div className="page">
-                <button className="pathfinder-button" onClick={() => this.startDijkstras}>Start Dijkstra's Algorithm</button>
+                <button className="pathfinder-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
                         return (

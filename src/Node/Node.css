@@ -16,3 +16,11 @@
 .wall-node{
     background-color: black;
 }
+
+.visited-node{
+    background-color: orange;
+}
+
+.node-shortest-path{
+    background-color: blue;
+}
