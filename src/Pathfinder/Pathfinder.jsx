@@ -76,14 +76,14 @@ class Pathfinder extends React.Component {
         const { grid } = this.state
         const start = grid[startRow][startCol]
         const end = grid[endRow][endCol]
-        const visitedNodesInOrder = dijkstras(grid, start, end)
+        const visitedNodes = dijkstras(grid, start, end)
         const nodesInShortestPathOrder = getNodesInShortestPathOrder(end)
-        this.animateDijkstras(visitedNodesInOrder, nodesInShortestPathOrder)
+        this.animateDijkstras(visitedNodes, nodesInShortestPathOrder)
     }
 
-    animateDijkstras(visitedNodesInOrder, nodesInShortestPathOrder) {
-        for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-            if (i === visitedNodesInOrder.length) {
+    animateDijkstras(visitedNodes, nodesInShortestPathOrder) {
+        for (let i = 0; i <= visitedNodes.length; i++) {
+            if (i === visitedNodes.length) {
                 setTimeout(() => {
                     for (let j = 0; j < nodesInShortestPathOrder.length; j++) {
                         setTimeout(() => {
@@ -95,7 +95,7 @@ class Pathfinder extends React.Component {
                 return;
             }
             setTimeout(() => {
-                const node = visitedNodesInOrder[i]
+                const node = visitedNodes[i]
                 document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited-node'
             }, i * 25)
         }
