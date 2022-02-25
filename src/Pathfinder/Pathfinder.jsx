@@ -47,6 +47,9 @@ class Pathfinder extends React.Component {
             grid: [],
             active: false
         }
+        // this.handlePress = this.handlePress.bind(this)
+        // this.handleContinuePress = this.handleContinuePress.bind(this)
+        // this.handleStopPress = this.handleStopPress.bind(this)
     }
 
     componentDidMount() {
@@ -61,13 +64,13 @@ class Pathfinder extends React.Component {
         })
     }
 
-    handleContinuePress(row, col) {
+    handleDrag(row, col) {
         if (!this.state.active) return;
         const updatedGrid = updateGrid(this.state.grid, row, col)
         this.setState({grid: updatedGrid})
     }
 
-    handleStopPress() {
+    handleStop() {
         this.setState({active: false})
     }
 
@@ -120,9 +123,9 @@ class Pathfinder extends React.Component {
                                         row={row}
                                         col={col}
                                         wall={wall}
-                                        press={(row, col) => this.handlePress(row, col)}
-                                        continuePress={(row, col) => this.handleContinuePress(row, col)}
-                                        stopPress={() => this.stopPress()}>
+                                        onMouseDown={(row, col) => this.handlePress(row, col)}
+                                        onMouseEnter={(row, col) => this.handleDrag(row, col)}
+                                        onMouseUp={() => this.handleStop()}>
                                     </Node>
                                 )
                             })}

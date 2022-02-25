@@ -7,7 +7,7 @@ class Node extends React.Component {
     }
 
     render() {
-        const { start, end, row, col, wall, press, continuePress, stopPress } = this.props
+        const { start, end, row, col, wall, onMouseDown, onMouseEnter, onMouseUp } = this.props
         const specialTile = start 
             ? 'starting-node'
             : end
@@ -20,9 +20,9 @@ class Node extends React.Component {
             <div 
                 className={`node ${specialTile}`}
                 id={`node-${row}-${col}`}
-                press={() => press(row, col)}
-                continuePress={() => continuePress(row, col)}
-                stopPress={() => stopPress()}>
+                onMouseDown={() => onMouseDown(row, col)}
+                onMouseEnter={() => onMouseEnter(row, col)}
+                onMouseUp={() => onMouseUp()}>
             </div>
         )
     } 
