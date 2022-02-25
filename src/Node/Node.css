@@ -1,8 +1,7 @@
 .node{
-    width: 29px;
-    height: 29px;
+    width: 28px;
+    height: 28px;
     border: 1px solid black;
-    display: inline-block;
 }
 
 .starting-node{

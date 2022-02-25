@@ -49,11 +49,11 @@ function getNextNodes(node, grid) {
     return nextNodes.filter(nextNode => !nextNode.visited)
 }
 
-export function shortestPath(end) {
+export function getShortestPath(end) {
     const shortestPath = []
     let currNode = end
     while (currNode !== null) {
-        nodesInShortestPathOrder.unshift(currNode)
+        shortestPath.unshift(currNode)
         currNode = currNode.previous
     }
     return shortestPath

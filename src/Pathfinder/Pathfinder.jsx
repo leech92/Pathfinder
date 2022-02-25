@@ -1,18 +1,18 @@
 import React from "react";
 import Node from '../Node/Node'
-import { dijkstras, getNodesInShortestPathOrder } from "../algorithms/dijkstras";
+import { dijkstras, getShortestPath } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
-const startRow = 3
-const endRow = 8
-const startCol = 3
-const endCol = 8
+const startRow = 10
+const endRow = 15
+const startCol = 7
+const endCol = 16
 
 const createGrid = () => {
     const grid = []
-        for (let row = 0; row < 15; row++) {
+        for (let row = 0; row < 25; row++) {
             let currRow = []
-            for (let col = 0; col < 15; col++) {
+            for (let col = 0; col < 25; col++) {
                 currRow.push({
                     col,
                     row,
@@ -30,7 +30,7 @@ const createGrid = () => {
 }
 
 const updateGrid = (grid, row, col) => {
-    const updatedGrid = grid.slice()
+    const updatedGrid = grid
     const node = updatedGrid[row][col]
     const updatedNode = {
         ...node,
@@ -47,7 +47,6 @@ class Pathfinder extends React.Component {
             grid: [],
             active: false
         }
-        this.startDijkstras = this.startDijkstras.bind(this)
     }
 
     componentDidMount() {
@@ -55,20 +54,20 @@ class Pathfinder extends React.Component {
         this.setState({grid})
     }
 
-    handlePress(row, col) {
+    mouseStart(row, col) {
         const updatedGrid = updateGrid(this.state.grid, row, col)
         this.setState({grid: updatedGrid,
                        active: true
         })
     }
 
-    handleDrag(row, col) {
+    mouseDrag(row, col) {
         if (!this.state.active) return;
         const updatedGrid = updateGrid(this.state.grid, row, col)
         this.setState({grid: updatedGrid})
     }
 
-    handleStop() {
+    mouseStop() {
         this.setState({active: false})
     }
 
@@ -77,17 +76,17 @@ class Pathfinder extends React.Component {
         const start = grid[startRow][startCol]
         const end = grid[endRow][endCol]
         const visitedNodes = dijkstras(grid, start, end)
-        const nodesInShortestPathOrder = getNodesInShortestPathOrder(end)
-        this.animateDijkstras(visitedNodes, nodesInShortestPathOrder)
+        const shortestPath = getShortestPath(end)
+        this.showDijkstras(visitedNodes, shortestPath)
     }
 
-    animateDijkstras(visitedNodes, nodesInShortestPathOrder) {
+    showDijkstras(visitedNodes, shortestPath) {
         for (let i = 0; i <= visitedNodes.length; i++) {
             if (i === visitedNodes.length) {
                 setTimeout(() => {
-                    for (let j = 0; j < nodesInShortestPathOrder.length; j++) {
+                    for (let j = 0; j < shortestPath.length; j++) {
                         setTimeout(() => {
-                            const node = nodesInShortestPathOrder[j]
+                            const node = shortestPath[j]
                             document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
                         }, j * 50)
                     }
@@ -110,7 +109,7 @@ class Pathfinder extends React.Component {
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
                         return (
-                        <div key={rowIdx}>
+                        <div key={rowIdx} className="row">
                             {row.map((node, nodeIdx) => {
                                 const { start, end, row, col, wall } = node
                                 return (
@@ -121,9 +120,9 @@ class Pathfinder extends React.Component {
                                         row={row}
                                         col={col}
                                         wall={wall}
-                                        onMouseDown={(row, col) => this.handlePress(row, col)}
-                                        onMouseEnter={(row, col) => this.handleDrag(row, col)}
-                                        onMouseUp={() => this.handleStop()}>
+                                        onMouseDown={(row, col) => this.mouseStart(row, col)}
+                                        onMouseEnter={(row, col) => this.mouseDrag(row, col)}
+                                        onMouseUp={() => this.mouseStop()}>
                                     </Node>
                                 )
                             })}
