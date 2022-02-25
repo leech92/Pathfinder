@@ -8,7 +8,7 @@ class Node extends React.Component {
 
     render() {
         const { start, end, row, col, wall, onMouseDown, onMouseEnter, onMouseUp } = this.props
-        const specialTile = start 
+        const changeTile = start 
             ? 'starting-node'
             : end
             ? 'ending-node'
@@ -18,7 +18,7 @@ class Node extends React.Component {
 
         return (
             <div 
-                className={`node ${specialTile}`}
+                className={`node ${changeTile}`}
                 id={`node-${row}-${col}`}
                 onMouseDown={() => onMouseDown(row, col)}
                 onMouseEnter={() => onMouseEnter(row, col)}
