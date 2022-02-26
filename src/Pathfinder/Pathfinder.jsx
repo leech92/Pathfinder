@@ -21,6 +21,13 @@ const createGrid = () => {
                     distance: Infinity,
                     visited: false,
                     wall: false,
+                    weight: false,
+                    currWeight: {
+                        top: 0,
+                        right: 0,
+                        bot: 0,
+                        left: 0
+                    },
                     previous: null
                 })
             }
@@ -32,12 +39,16 @@ const createGrid = () => {
 const updateGrid = (grid, row, col) => {
     const updatedGrid = grid
     const node = updatedGrid[row][col]
-    const updatedNode = {
-        ...node,
-        wall: !node.wall
+    if (!node.start && !node.end && !node.wall && !node.weight) {
+        const updatedNode = {
+            ...node,
+            wall: !node.wall
+        }
+        updatedGrid[row][col] = updatedNode
+        return updatedGrid
+    }else {
+        return updatedGrid
     }
-    updatedGrid[row][col] = updatedNode
-    return updatedGrid
 }
 
 class Pathfinder extends React.Component {
