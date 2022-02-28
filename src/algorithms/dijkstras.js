@@ -18,7 +18,13 @@ export function dijkstras(grid, start, end) {
         if (currNode.wall) continue
         if (currNode.distance === Infinity) return visitedNodes
         currNode.visited = true
-        visitedNodes.push(currNode)
+        if (currNode.weight === 0) {
+            visitedNodes.push(currNode)
+        }else {
+            currNode.weight= currNode.weight - 1
+            currNode.distance = currNode.distance + 1
+            newNodes.push(currNode)
+        }
         if (currNode === end) return visitedNodes
         updateNextNodes(currNode, grid)
     }

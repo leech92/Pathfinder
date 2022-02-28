@@ -7,14 +7,7 @@ class Node extends React.Component {
     }
 
     render() {
-        const { start, end, row, col, wall, weight, currWeight, onMouseDown, onMouseEnter, onMouseUp } = this.props
-        const weights = Object.values(currWeight)
-        let lowestWeight = 2
-        weights.forEach((checkWeight) => {
-            if (checkWeight < lowestWeight) {
-                lowestWeight = checkWeight
-            }
-        })
+        const { start, end, row, col, wall, weight, onMouseDown, onMouseEnter, onMouseUp } = this.props
 
         const changeTile = start 
             ? 'starting-node'
@@ -22,9 +15,9 @@ class Node extends React.Component {
             ? 'ending-node'
             : wall
             ? 'wall-node'
-            : weight && lowestWeight === 2
+            : weight === 2
             ? 'big-weight-node'
-            : weight && lowestWeight === 1
+            : weight === 1
             ? 'small-weight-node'
             : ''
 

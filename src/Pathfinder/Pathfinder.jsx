@@ -3,10 +3,10 @@ import Node from '../Node/Node'
 import { dijkstras, getShortestPath } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
-const startRow = 10
+const startRow = 5
 const endRow = 15
-const startCol = 7
-const endCol = 16
+const startCol = 5
+const endCol = 15
 
 const createGrid = () => {
     const grid = []
@@ -21,13 +21,7 @@ const createGrid = () => {
                     distance: Infinity,
                     visited: false,
                     wall: false,
-                    weight: false,
-                    currWeight: {
-                        top: 0,
-                        right: 0,
-                        bot: 0,
-                        left: 0
-                    },
+                    weight: 0,
                     previous: null
                 })
             }
@@ -40,7 +34,7 @@ const updateGrid = (grid, row, col, type) => {
     const updatedGrid = grid
     const node = updatedGrid[row][col]
     if (!node.start && !node.end && !node.wall) {
-        if (type === "wall" && !node.weight) {
+        if (type === "wall" && node.weight === 0) {
             const updatedNode = {
                 ...node,
                 wall: !node.wall
@@ -48,9 +42,21 @@ const updateGrid = (grid, row, col, type) => {
             updatedGrid[row][col] = updatedNode
             return updatedGrid
         }else if (type === "weight") {
-            const updatedNode = updateWeight(node)
-            updatedGrid[row][col] = updatedNode
-            return updatedGrid
+            if (node.weight === 2) {
+                const updatedNode = {
+                    ...node,
+                    weight: 0
+                }
+                updatedGrid[row][col] = updatedNode
+                return updatedGrid
+            }else {
+                const updatedNode = {
+                    ...node,
+                    weight: node.weight + 1
+                }
+                updatedGrid[row][col] = updatedNode
+                return updatedGrid
+            }
         }else {
             return updatedGrid
         }
@@ -59,31 +65,6 @@ const updateGrid = (grid, row, col, type) => {
     }
 }
 
-const updateWeight = (node) => {
-    let updatedCurrWeight = {}
-
-    if (node.currWeight.top === 2) {
-        Object.keys(node.currWeight).forEach((direction) => {
-            updatedCurrWeight[direction] = 0
-        })
-        const updatedNode = {
-            ...node,
-            weight: false,
-            currWeight: updatedCurrWeight
-        }
-        return updatedNode
-    }else {
-        Object.keys(node.currWeight).forEach((direction) => {
-            updatedCurrWeight[direction] = node.currWeight[direction] + 1
-        })
-        const updatedNode = {
-            ...node,
-            weight: true,
-            currWeight: updatedCurrWeight
-        }
-        return updatedNode
-    }
-}
 
 class Pathfinder extends React.Component {
     constructor(props) {
@@ -171,7 +152,7 @@ class Pathfinder extends React.Component {
                         return (
                         <div key={rowIdx} className="row">
                             {row.map((node, nodeIdx) => {
-                                const { start, end, row, col, wall, weight, currWeight } = node
+                                const { start, end, row, col, wall, weight } = node
                                 return (
                                     <Node 
                                         key={nodeIdx} 
@@ -181,7 +162,6 @@ class Pathfinder extends React.Component {
                                         col={col}
                                         wall={wall}
                                         weight={weight}
-                                        currWeight={currWeight}
                                         onMouseDown={(row, col) => this.mouseStart(row, col)}
                                         onMouseEnter={(row, col) => this.mouseDrag(row, col)}
                                         onMouseUp={() => this.mouseStop()}>
