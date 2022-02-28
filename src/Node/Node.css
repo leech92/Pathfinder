@@ -16,6 +16,14 @@
     background-color: black;
 }
 
+.big-weight-node{
+    background-color: rgb(58, 58, 58);
+}
+
+.small-weight-node{
+    background-color: darkgrey;
+}
+
 .visited-node{
     background-color: orange;
 }

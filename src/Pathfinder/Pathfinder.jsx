@@ -36,18 +36,52 @@ const createGrid = () => {
     return grid
 }
 
-const updateGrid = (grid, row, col) => {
+const updateGrid = (grid, row, col, type) => {
     const updatedGrid = grid
     const node = updatedGrid[row][col]
-    if (!node.start && !node.end && !node.wall && !node.weight) {
-        const updatedNode = {
-            ...node,
-            wall: !node.wall
+    if (!node.start && !node.end && !node.wall) {
+        if (type === "wall" && !node.weight) {
+            const updatedNode = {
+                ...node,
+                wall: !node.wall
+            }
+            updatedGrid[row][col] = updatedNode
+            return updatedGrid
+        }else if (type === "weight") {
+            const updatedNode = updateWeight(node)
+            updatedGrid[row][col] = updatedNode
+            return updatedGrid
+        }else {
+            return updatedGrid
         }
-        updatedGrid[row][col] = updatedNode
-        return updatedGrid
     }else {
         return updatedGrid
+    }
+}
+
+const updateWeight = (node) => {
+    let updatedCurrWeight = {}
+
+    if (node.currWeight.top === 2) {
+        Object.keys(node.currWeight).forEach((direction) => {
+            updatedCurrWeight[direction] = 0
+        })
+        const updatedNode = {
+            ...node,
+            weight: false,
+            currWeight: updatedCurrWeight
+        }
+        return updatedNode
+    }else {
+        Object.keys(node.currWeight).forEach((direction) => {
+            updatedCurrWeight[direction] = node.currWeight[direction] + 1
+        })
+        const updatedNode = {
+            ...node,
+            weight: true,
+            currWeight: updatedCurrWeight
+        }
+        return updatedNode
     }
 }
 
@@ -56,30 +90,45 @@ class Pathfinder extends React.Component {
         super(props)
         this.state = {
             grid: [],
-            active: false
+            mouseActive: false,
+            keyActive: false,
         }
     }
 
     componentDidMount() {
         const grid = createGrid()
         this.setState({grid})
+        document.body.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && this.state.keyActive) {
+                this.setState({keyActive: false})
+            }else if (e.key === ' ' && !this.state.keyActive){
+                this.setState({keyActive: true})
+            }
+        })
     }
 
     mouseStart(row, col) {
-        const updatedGrid = updateGrid(this.state.grid, row, col)
+        let type = "wall"
+        if (this.state.keyActive) type = "weight"
+
+        const updatedGrid = updateGrid(this.state.grid, row, col, type)
         this.setState({grid: updatedGrid,
-                       active: true
+                       mouseActive: true
         })
     }
 
     mouseDrag(row, col) {
-        if (!this.state.active) return;
-        const updatedGrid = updateGrid(this.state.grid, row, col)
+        if (!this.state.mouseActive) return;
+
+        let type = "wall"
+        if (this.state.keyActive) type = "weight"
+
+        const updatedGrid = updateGrid(this.state.grid, row, col, type)
         this.setState({grid: updatedGrid})
     }
 
     mouseStop() {
-        this.setState({active: false})
+        this.setState({mouseActive: false})
     }
 
     startDijkstras() {
@@ -122,7 +171,7 @@ class Pathfinder extends React.Component {
                         return (
                         <div key={rowIdx} className="row">
                             {row.map((node, nodeIdx) => {
-                                const { start, end, row, col, wall } = node
+                                const { start, end, row, col, wall, weight, currWeight } = node
                                 return (
                                     <Node 
                                         key={nodeIdx} 
@@ -131,6 +180,8 @@ class Pathfinder extends React.Component {
                                         row={row}
                                         col={col}
                                         wall={wall}
+                                        weight={weight}
+                                        currWeight={currWeight}
                                         onMouseDown={(row, col) => this.mouseStart(row, col)}
                                         onMouseEnter={(row, col) => this.mouseDrag(row, col)}
                                         onMouseUp={() => this.mouseStop()}>
