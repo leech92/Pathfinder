@@ -3,10 +3,10 @@ import Node from '../Node/Node'
 import { dijkstras, getShortestPath } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
-const startRow = 5
-const endRow = 15
-const startCol = 5
-const endCol = 15
+let startRow = 5
+let endRow = 15
+let startCol = 5
+let endCol = 15
 
 const createGrid = () => {
     const grid = []
@@ -72,7 +72,10 @@ class Pathfinder extends React.Component {
         this.state = {
             grid: [],
             mouseActive: false,
-            keyActive: false,
+            wallActive: true,
+            weightActive: false,
+            startActive: false,
+            endActive: false
         }
     }
 
@@ -80,17 +83,25 @@ class Pathfinder extends React.Component {
         const grid = createGrid()
         this.setState({grid})
         document.body.addEventListener('keydown', (e) => {
-            if (e.key === ' ' && this.state.keyActive) {
-                this.setState({keyActive: false})
-            }else if (e.key === ' ' && !this.state.keyActive){
-                this.setState({keyActive: true})
+            if (e.key === 'w' || e.key === 'h' || e.key === 's' || e.key === 'e') {
+                this.setState({wallActive: false})
+                this.setState({weightActive: false})
+                this.setState({startActive: false})
+                this.setState({endActive: false})
             }
+            if (e.key === 'w') this.setState({wallActive: true})
+            if (e.key === 'h') this.setState({weightActive: true})
+            if (e.key === 's') this.setState({weightActive: true})
+            if (e.key === 'e') this.setState({weightActive: true})
         })
     }
 
     mouseStart(row, col) {
-        let type = "wall"
-        if (this.state.keyActive) type = "weight"
+        let type = ""
+        if (this.state.wallActive) type = "wall"
+        if (this.state.weightActive) type = "weight"
+        if (this.state.startActive) type = "start"
+        if (this.state.endActive) type = "end"
 
         const updatedGrid = updateGrid(this.state.grid, row, col, type)
         this.setState({grid: updatedGrid,
@@ -102,7 +113,7 @@ class Pathfinder extends React.Component {
         if (!this.state.mouseActive) return;
 
         let type = "wall"
-        if (this.state.keyActive) type = "weight"
+        if (this.state.weightActive) type = "weight"
 
         const updatedGrid = updateGrid(this.state.grid, row, col, type)
         this.setState({grid: updatedGrid})
@@ -144,9 +155,10 @@ class Pathfinder extends React.Component {
     render() {
         const { grid } = this.state
 
+
         return (
             <div className="page">
-                <button className="pathfinder-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
+                <button className="dij-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
                         return (
@@ -173,7 +185,6 @@ class Pathfinder extends React.Component {
                     })}
                 </div>
             </div>
-            
         )
     }
 }
