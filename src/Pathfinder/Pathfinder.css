@@ -30,10 +30,15 @@
     align-items: center;
 }
 
+.node-img{
+    width: 30px;
+    height: 30px;
+}
+
 .black-box{
     background-color: black;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
 }
 
 .grey-box{

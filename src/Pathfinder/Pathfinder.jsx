@@ -209,11 +209,11 @@ class Pathfinder extends React.Component {
                     <div className="node-info">
                         <div>
                             <p>Start Node</p>
-                            <img src="../images/Start.png" />
+                            <img className="node-img" src="../images/Start.png" />
                         </div>
                         <div>
                             <p>End Node</p>
-                            <img src="../images/End.png" />
+                            <img className="node-img" src="../images/End.png" />
                         </div>
                         <div>
                             <p>Wall Node</p>
