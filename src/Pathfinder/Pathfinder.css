@@ -5,11 +5,61 @@
     align-items: center;
 }
 
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(172, 238, 216);
+    border: 2px solid rgb(89, 170, 143);
+    margin-bottom: 20px;
+}
+
+.node-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.node-info > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.black-box{
+    background-color: black;
+    width: 28px;
+    height: 28px;
+}
+
+.grey-box{
+    background-color: darkgrey;
+    width: 28px;
+    height: 28px;
+    border: 1px solid black;
+}
+
+.dark-grey-box{
+    background-color: rgb(83, 83, 83);
+    width: 28px;
+    height: 28px;
+    border: 1px solid black;
+}
+
+.active{
+    width: 100px;
+}
+
 .grid{
     display: flex;
     flex-wrap: wrap;
     width: 750px;
     height: 750px;
+    border: 1px solid black;
 }
 
 .row{

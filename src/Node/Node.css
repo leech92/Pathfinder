@@ -5,11 +5,13 @@
 }
 
 .starting-node{
-    background-color: green;
+    background-image: url('../images/Start.png');
+    background-size: cover;
 }
 
 .ending-node{
-    background-color: red;
+    background-image: url('../images/End.png');
+    background-size: cover;
 }
 
 .wall-node{

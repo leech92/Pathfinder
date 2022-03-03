@@ -3,10 +3,10 @@ import Node from '../Node/Node'
 import { dijkstras, getShortestPath } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
-let startRow = 5
-let endRow = 15
-let startCol = 5
-let endCol = 15
+let startRow = 8
+let endRow = 16
+let startCol = 8
+let endCol = 16
 
 const createGrid = () => {
     const grid = []
@@ -175,7 +175,9 @@ class Pathfinder extends React.Component {
                     for (let j = 0; j < shortestPath.length; j++) {
                         setTimeout(() => {
                             const node = shortestPath[j]
-                            document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
+                            if (!node.start && !node.end) {
+                                document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path'
+                            }
                         }, j * 50)
                     }
                 }, i * 25)
@@ -183,18 +185,54 @@ class Pathfinder extends React.Component {
             }
             setTimeout(() => {
                 const node = visitedNodes[i]
-                document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited-node'
+                if (!node.start && !node.end) {
+                    document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited-node'
+                }
             }, i * 25)
         }
+    }
+
+    showActive() {
+        if (this.state.wallActive) return "Wall"
+        if (this.state.weightActive) return "Weight"
+        if (this.state.startActive) return "Start"
+        if (this.state.endActive) return "End"
     }
 
     render() {
         const { grid } = this.state
 
-
         return (
             <div className="page">
-                <button className="dij-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
+                <div className="header">
+                    <button className="dij-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
+                    <div className="node-info">
+                        <div>
+                            <p>Start Node</p>
+                            <img src="../images/Start.png" />
+                        </div>
+                        <div>
+                            <p>End Node</p>
+                            <img src="../images/End.png" />
+                        </div>
+                        <div>
+                            <p>Wall Node</p>
+                            <div className="black-box"></div>
+                        </div>
+                        <div>
+                            <p>Weight One Node</p>
+                            <div className="grey-box"></div>
+                        </div>
+                        <div>
+                            <p>Weight Two Node</p>
+                            <div className="dark-grey-box"></div>
+                        </div>
+                    </div>
+                    <button className="reset-button" onClick={() => window.location.reload()}>Reset</button>
+                    <div className="active">
+                        {this.showActive()} Active
+                    </div>
+                </div>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
                         return (
