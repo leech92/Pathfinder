@@ -43,8 +43,17 @@ const updateGrid = (grid, row, col, type) => {
             updatedGrid[row][col] = updatedNode
             return updatedGrid
         }else if (type === "start") {
-            
+            updatedGrid[startRow][startCol].start = false
+            startRow = row
+            startCol = col
             const updatedNode = updateStart(node)
+            updatedGrid[row][col] = updatedNode
+            return updatedGrid
+        }else if (type === "end") {
+            updatedGrid[endRow][endCol].end = false
+            endRow = row
+            endCol = col
+            const updatedNode = updateEnd(node)
             updatedGrid[row][col] = updatedNode
             return updatedGrid
         }else {
@@ -81,6 +90,13 @@ const updateStart = node => {
         ...node,
         start: true
     }
+}
+
+const updateEnd = node => {
+    return {
+        ...node,
+        end: true
+    }
 } 
 
 class Pathfinder extends React.Component {
@@ -108,8 +124,8 @@ class Pathfinder extends React.Component {
             }
             if (e.key === 'w') this.setState({wallActive: true})
             if (e.key === 'h') this.setState({weightActive: true})
-            if (e.key === 's') this.setState({weightActive: true})
-            if (e.key === 'e') this.setState({weightActive: true})
+            if (e.key === 's') this.setState({startActive: true})
+            if (e.key === 'e') this.setState({endActive: true})
         })
     }
 
