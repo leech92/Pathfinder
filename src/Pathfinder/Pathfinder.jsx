@@ -35,28 +35,18 @@ const updateGrid = (grid, row, col, type) => {
     const node = updatedGrid[row][col]
     if (!node.start && !node.end && !node.wall) {
         if (type === "wall" && node.weight === 0) {
-            const updatedNode = {
-                ...node,
-                wall: !node.wall
-            }
+            const updatedNode = updateWall(node)
             updatedGrid[row][col] = updatedNode
             return updatedGrid
         }else if (type === "weight") {
-            if (node.weight === 2) {
-                const updatedNode = {
-                    ...node,
-                    weight: 0
-                }
-                updatedGrid[row][col] = updatedNode
-                return updatedGrid
-            }else {
-                const updatedNode = {
-                    ...node,
-                    weight: node.weight + 1
-                }
-                updatedGrid[row][col] = updatedNode
-                return updatedGrid
-            }
+            const updatedNode = updateWeight(node)
+            updatedGrid[row][col] = updatedNode
+            return updatedGrid
+        }else if (type === "start") {
+            
+            const updatedNode = updateStart(node)
+            updatedGrid[row][col] = updatedNode
+            return updatedGrid
         }else {
             return updatedGrid
         }
@@ -65,6 +55,33 @@ const updateGrid = (grid, row, col, type) => {
     }
 }
 
+const updateWall = node => {
+    return {
+        ...node,
+        wall: !node.wall
+    } 
+}
+
+const updateWeight = node => {
+    if (node.weight === 2) {
+        return {
+            ...node,
+            weight: 0
+        }
+    }else {
+        return {
+            ...node,
+            weight: node.weight + 1
+        }
+    }
+}
+
+const updateStart = node => {
+    return {
+        ...node,
+        start: true
+    }
+} 
 
 class Pathfinder extends React.Component {
     constructor(props) {
@@ -112,8 +129,11 @@ class Pathfinder extends React.Component {
     mouseDrag(row, col) {
         if (!this.state.mouseActive) return;
 
-        let type = "wall"
+        let type = ""
+        if (this.state.wallActive) type = "wall"
         if (this.state.weightActive) type = "weight"
+        if (this.state.startActive) type = "start"
+        if (this.state.endActive) type = "end"
 
         const updatedGrid = updateGrid(this.state.grid, row, col, type)
         this.setState({grid: updatedGrid})
