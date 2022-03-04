@@ -209,11 +209,11 @@ class Pathfinder extends React.Component {
                     <div className="node-info">
                         <div>
                             <p>Start Node</p>
-                            <img className="node-img" src="../images/Start.png" />
+                            <div className="start-box"></div>
                         </div>
                         <div>
                             <p>End Node</p>
-                            <img className="node-img" src="../images/End.png" />
+                            <div className="end-box"></div>
                         </div>
                         <div>
                             <p>Wall Node</p>
@@ -228,10 +228,8 @@ class Pathfinder extends React.Component {
                             <div className="dark-grey-box"></div>
                         </div>
                     </div>
+                    <p className="active">{this.showActive()} Active</p>
                     <button className="reset-button" onClick={() => window.location.reload()}>Reset</button>
-                    <div className="active">
-                        {this.showActive()} Active
-                    </div>
                 </div>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {

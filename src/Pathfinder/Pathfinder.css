@@ -12,7 +12,7 @@
     align-items: center;
     height: 100px;
     width: 100%;
-    background-color: rgb(172, 238, 216);
+    background-color: rgb(221, 255, 244);
     border: 2px solid rgb(89, 170, 143);
     margin-bottom: 20px;
 }
@@ -35,10 +35,27 @@
     height: 30px;
 }
 
+.start-box{
+    background-image: url('../images/Start.png');
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
+
+.end-box{
+    background-image: url('../images/End.png');
+    background-size: cover;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}
+
 .black-box{
     background-color: black;
     width: 30px;
     height: 30px;
+    margin-top: 10px;
 }
 
 .grey-box{
@@ -46,6 +63,7 @@
     width: 28px;
     height: 28px;
     border: 1px solid black;
+    margin-top: 10px;
 }
 
 .dark-grey-box{
@@ -53,6 +71,7 @@
     width: 28px;
     height: 28px;
     border: 1px solid black;
+    margin-top: 10px;
 }
 
 .active{
