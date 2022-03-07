@@ -1,5 +1,6 @@
 import React from "react";
 import Node from '../Node/Node'
+import Instructions from '../Instructions/Instructions'
 import { dijkstras, getShortestPath } from "../algorithms/dijkstras";
 import './Pathfinder.css'
 
@@ -108,7 +109,8 @@ class Pathfinder extends React.Component {
             wallActive: true,
             weightActive: false,
             startActive: false,
-            endActive: false
+            endActive: false,
+            modal: true
         }
     }
 
@@ -199,14 +201,24 @@ class Pathfinder extends React.Component {
         if (this.state.endActive) return "End"
     }
 
+    showInstructions() {
+        this.setState({modal: true})
+    }
+
+    hideInstructions() {
+        this.setState({modal: false})
+    }
+
     render() {
         const { grid } = this.state
 
         return (
             <div className="page">
+                <Instructions show={this.state.modal} handleClose={this.hideInstructions}/>
                 <div className="header">
                     <h1 className="title">Pathfinding Visualizer</h1>
                     <div className="header-second">
+                        <button className="instruct-button" onClick={() => this.showInstructions}>Instructions</button>
                         <button className="start-button" onClick={() => this.startDijkstras()}>Start Search</button>
                         <div className="node-info">
                             <div>
