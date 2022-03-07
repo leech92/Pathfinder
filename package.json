@@ -1,7 +1,7 @@
 {
   "name": "Pathfinder",
   "version": "0.1.0",
-  "homepage": "https://leech92.github.io/pathfinder",
+  "homepage": "https://leech92.github.io/Pathfinder",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
