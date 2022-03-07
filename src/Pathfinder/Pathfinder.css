@@ -32,6 +32,22 @@
     width: 100%;
 }
 
+.instruct-button{
+    height: 40px;
+    width: 120px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(61, 150, 120);
+    border-radius: 8px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.instruct-button:hover{
+    background-color: rgb(32, 100, 78);
+}
+
 .start-button{
     height: 40px;
     width: 120px;
@@ -41,6 +57,11 @@
     background-color: rgb(61, 150, 120);
     border-radius: 8px;
     border: 2px solid white;
+    cursor: pointer;
+}
+
+.start-button:hover{
+    background-color: rgb(32, 100, 78);
 }
 
 .node-info{
@@ -131,6 +152,11 @@
     background-color: rgb(61, 150, 120);
     border-radius: 8px;
     border: 2px solid white;
+    cursor: pointer;
+}
+
+.reset-button:hover{
+    background-color: rgb(32, 100, 78);
 }
 
 .grid{

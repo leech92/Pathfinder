@@ -112,6 +112,7 @@ class Pathfinder extends React.Component {
             endActive: false,
             modal: true
         }
+        this.hideInstructions = this.hideInstructions.bind(this)
     }
 
     componentDidMount() {
@@ -218,7 +219,8 @@ class Pathfinder extends React.Component {
                 <div className="header">
                     <h1 className="title">Pathfinding Visualizer</h1>
                     <div className="header-second">
-                        <button className="instruct-button" onClick={() => this.showInstructions}>Instructions</button>
+                        <button className="instruct-button" onClick={() => this.showInstructions()}>Instructions
+                        </button>
                         <button className="start-button" onClick={() => this.startDijkstras()}>Start Search</button>
                         <div className="node-info">
                             <div>
