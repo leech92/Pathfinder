@@ -1,6 +1,6 @@
 # Pathfinder
 
-[Live Site Link](https://leech92.github.io/pathfinder)
+[Live Site Link](https://leech92.github.io/Pathfinder)
 
 <img src="src/images/snapshot.JPG" width="800" height="400">
 
