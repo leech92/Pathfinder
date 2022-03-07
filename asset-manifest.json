@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/pathfinder/static/css/main.aefd9667.css",
-    "main.js": "/pathfinder/static/js/main.09e16297.js",
-    "static/media/angellist.png": "/pathfinder/static/media/angellist.b2a2786a2135cf02e65b.png",
-    "index.html": "/pathfinder/index.html",
-    "main.aefd9667.css.map": "/pathfinder/static/css/main.aefd9667.css.map",
-    "main.09e16297.js.map": "/pathfinder/static/js/main.09e16297.js.map"
+    "main.css": "/Pathfinder/static/css/main.b96f05a9.css",
+    "main.js": "/Pathfinder/static/js/main.09e16297.js",
+    "static/media/angellist.png": "/Pathfinder/static/media/angellist.b2a2786a2135cf02e65b.png",
+    "index.html": "/Pathfinder/index.html",
+    "main.b96f05a9.css.map": "/Pathfinder/static/css/main.b96f05a9.css.map",
+    "main.09e16297.js.map": "/Pathfinder/static/js/main.09e16297.js.map"
   },
   "entrypoints": [
-    "static/css/main.aefd9667.css",
+    "static/css/main.b96f05a9.css",
     "static/js/main.09e16297.js"
   ]
 }
