@@ -116,14 +116,14 @@ class Pathfinder extends React.Component {
         const grid = createGrid()
         this.setState({grid})
         document.body.addEventListener('keydown', (e) => {
-            if (e.key === 'w' || e.key === 'h' || e.key === 's' || e.key === 'e') {
+            if (e.key === 'w' || e.key === 't' || e.key === 's' || e.key === 'e') {
                 this.setState({wallActive: false})
                 this.setState({weightActive: false})
                 this.setState({startActive: false})
                 this.setState({endActive: false})
             }
             if (e.key === 'w') this.setState({wallActive: true})
-            if (e.key === 'h') this.setState({weightActive: true})
+            if (e.key === 't') this.setState({weightActive: true})
             if (e.key === 's') this.setState({startActive: true})
             if (e.key === 'e') this.setState({endActive: true})
         })
@@ -205,31 +205,37 @@ class Pathfinder extends React.Component {
         return (
             <div className="page">
                 <div className="header">
-                    <button className="dij-button" onClick={() => this.startDijkstras()}>Start Dijkstra's Algorithm</button>
-                    <div className="node-info">
-                        <div>
-                            <p>Start Node</p>
-                            <div className="start-box"></div>
+                    <h1 className="title">Pathfinding Visualizer</h1>
+                    <div className="header-second">
+                        <button className="dij-button" onClick={() => this.startDijkstras()}>Start Search</button>
+                        <div className="node-info">
+                            <div>
+                                <p className="node-title">Start Node</p>
+                                <div className="start-box"></div>
+                            </div>
+                            <div>
+                                <p className="node-title">End Node</p>
+                                <div className="end-box"></div>
+                            </div>
+                            <div>
+                                <p className="node-title">Wall Node</p>
+                                <div className="black-box"></div>
+                            </div>
+                            <div>
+                                <p className="node-title">Weight One Node</p>
+                                <div className="grey-box"></div>
+                            </div>
+                            <div>
+                                <p className="node-title">Weight Two Node</p>
+                                <div className="dark-grey-box"></div>
+                            </div>
                         </div>
-                        <div>
-                            <p>End Node</p>
-                            <div className="end-box"></div>
+                        <div className="active">
+                            <p>Currently Selected Node</p>
+                            <p className="node-toggle">{this.showActive()}</p>
                         </div>
-                        <div>
-                            <p>Wall Node</p>
-                            <div className="black-box"></div>
-                        </div>
-                        <div>
-                            <p>Weight One Node</p>
-                            <div className="grey-box"></div>
-                        </div>
-                        <div>
-                            <p>Weight Two Node</p>
-                            <div className="dark-grey-box"></div>
-                        </div>
+                        <button className="reset-button" onClick={() => window.location.reload()}>Reset</button>
                     </div>
-                    <p className="active">{this.showActive()} Active</p>
-                    <button className="reset-button" onClick={() => window.location.reload()}>Reset</button>
                 </div>
                 <div className="grid">
                     {grid.map((row, rowIdx) => {
