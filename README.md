@@ -2,7 +2,7 @@
 
 [Live Site Link]()
 
-<img src="app/assets/images/readme/splash.png" width="800" height="400">
+<img src="src/images/snapshot.JPG" width="800" height="400">
 
 # Overview
 Pathfinder is a pathfinding visualizer that uses search algorithms to find the shortest path from the starting point to the ending point. 
