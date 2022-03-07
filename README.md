@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# Pathfinder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Live Site Link]()
 
-## Available Scripts
+<img src="app/assets/images/readme/splash.png" width="800" height="400">
 
-In the project directory, you can run:
+# Overview
+Pathfinder is a pathfinding visualizer that uses search algorithms to find the shortest path from the starting point to the ending point. 
 
-### `npm start`
+# Technologies
+NotAllTrails is built with a backend that uses Ruby on Rails and a frontend that uses React and Redux. The database was built using PostgreSql and the trail images were uploaded using AWS S3 storage. Styling was done using SCSS. The maps and markers were generated using the Google Maps API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Functionality & MVPs
+## Reviews CRUD
+Signed in users will have the ability to create reviews, update their reviews, and delete their reviews on the trail pages. When not signed in, only the ability to read reviews will be available. The create and edit functionality is done through the use of a modal that allows for a more fluid user experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="app/assets/images/readme/modal.png" width="400" height="400">
 
-### `npm test`
+## Google Maps API
+The Google Maps API was used to generate a map that shows the park and nearby trails. The map allows users to see and easily access information from nearby parks and trails by clicking on the markers.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="app/assets/images/readme/gmap.png" width="600" height="300">
 
-### `npm run build`
+## Search Bar
+A search bar is available on every page to allow users to easily navigate from one page to another. The search bar uses a helper function and a filter to manipulate the className to display a dropdown that the user wants to see.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+setActive() {
+    if (this.state.active) {
+        setTimeout(() => {
+            this.setState({active: false})
+        }, 200)
+    }else {
+        this.setState({active: true})
+    }
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+setSearch(event) {
+    this.setState({search: event.target.value})
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+render() {
+    
+    (other code)
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    return (
+        <div className="search-bar-container">
+            <div className="search-bar">
+                <div className="search-bar-image-container">
+                    <img className="search-bar-image" src={window.search} />
+                </div>
+                <input 
+                    className="search-bar-body" 
+                    type="text" 
+                    placeholder="Search by park or trail name"
+                    onFocus={this.setActive}
+                    onBlur={this.setActive}
+                    onChange={this.setSearch}
+                />
+            </div>
+            <div className={this.state.active ? "search-bar-active" : "search-bar-unactive"}>
+                {parksArray.map((park, idx) => {
+                    if (park.park_name.toLowerCase().includes(this.state.search.toLowerCase())){
+                        return (
+                            <li key={idx} className="search-bar-result" onClick={() => this.parkSearch(park.id)}>
+                                <div className="result-image-container">
+                                    <img className="result-image" src={window.park} />
+                                </div>
+                                <div className="result-text">
+                                    <h1 className="result-text-name">{park.park_name}</h1>
+                                    <p className="result-text-location">{park.state}, {park.country}</p>
+                                </div>
+                            </li>
+                        )
+                    }
+                })}
+                {trailsArray.map((trail, idx) => {
+                    if (trail.trail_name.toLowerCase().includes(this.state.search.toLowerCase())){
+                        return (
+                            <li key={idx} className="search-bar-result" onClick={() => this.trailSearch(trail.id)}>
+                                <div className="result-image-container">
+                                    <img className="result-image" src={window.trail} />
+                                </div>
+                                <div className="result-text">
+                                    <h1 className="result-text-name">{trail.trail_name}</h1>
+                                    <p className="result-text-location">{parks[trail.park_id].park_name}, {parks[trail.park_id].state}, {parks[trail.park_id].country}</p>
+                                </div>
+                            </li>
+                        )
+                    }
+                })}
+            </div>
+        </div>
+    )
+}
+```

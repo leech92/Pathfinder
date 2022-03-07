@@ -276,6 +276,11 @@ class Pathfinder extends React.Component {
                         )
                     })}
                 </div>
+                <div className="links">
+                    <a href="https://www.linkedin.com/in/christian-lee-371b37160/" target="_blank"><div className="linkedin"></div></a>
+                    <a href="https://github.com/leech92" target="_blank"><div className="github"></div></a>
+                    <a href="https://angel.co/u/christian-lee-17" target="_blank"><div className="angellist"></div></a>
+                </div>
             </div>
         )
     }
