@@ -207,26 +207,26 @@ class Pathfinder extends React.Component {
                 <div className="header">
                     <h1 className="title">Pathfinding Visualizer</h1>
                     <div className="header-second">
-                        <button className="dij-button" onClick={() => this.startDijkstras()}>Start Search</button>
+                        <button className="start-button" onClick={() => this.startDijkstras()}>Start Search</button>
                         <div className="node-info">
                             <div>
-                                <p className="node-title">Start Node</p>
+                                <p className="node-title">Start Node (S)</p>
                                 <div className="start-box"></div>
                             </div>
                             <div>
-                                <p className="node-title">End Node</p>
+                                <p className="node-title">End Node (E)</p>
                                 <div className="end-box"></div>
                             </div>
                             <div>
-                                <p className="node-title">Wall Node</p>
+                                <p className="node-title">Wall Node (W)</p>
                                 <div className="black-box"></div>
                             </div>
                             <div>
-                                <p className="node-title">Weight One Node</p>
+                                <p className="node-title">Weight 1 Node (T)</p>
                                 <div className="grey-box"></div>
                             </div>
                             <div>
-                                <p className="node-title">Weight Two Node</p>
+                                <p className="node-title">Weight 2 Node (T)</p>
                                 <div className="dark-grey-box"></div>
                             </div>
                         </div>

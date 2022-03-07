@@ -29,7 +29,18 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 80%;
+    width: 100%;
+}
+
+.start-button{
+    height: 40px;
+    width: 120px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(61, 150, 120);
+    border-radius: 8px;
+    border: 2px solid white;
 }
 
 .node-info{
@@ -106,9 +117,20 @@
 }
 
 .node-toggle{
-    margin-top: 10px;
+    margin-top: 22px;
     color: rgb(15, 167, 116);
     font-weight: bold;
+}
+
+.reset-button{
+    height: 40px;
+    width: 80px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(61, 150, 120);
+    border-radius: 8px;
+    border: 2px solid white;
 }
 
 .grid{
